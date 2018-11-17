@@ -3,7 +3,7 @@
     margin: 0;
 }
 canvas {
-    background: black;
+    background: #69696d;
     display: block;
     margin: 0 auto;
     margin-top: 15px;
@@ -46,7 +46,7 @@ canvas {
 }
 html {
     height: 100%;
-    background: radial-gradient(yellow 15%, purple 60%);
+    background: #0831ad;
     background-size: cover;
 }
 #myTitle {
