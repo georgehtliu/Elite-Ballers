@@ -1,0 +1,67 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+canvas {
+    background: black;
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
+    border-color: white;
+    border-radius: 8px;
+}
+#myP {
+    padding-top: 35px;
+    padding-left: 10px;
+    text-align: center;
+    font-family: fantasy;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+}
+#myP button {
+    background: #09C;
+    border-radius: 8px;
+    padding: 20px 80px;
+    color: white;
+    float: left;
+    font-size: 30px;
+}
+#newGame {
+    padding-top: 5px;
+    padding-left: 10px;
+    text-align: center;
+    font-family: fantasy;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+}
+#newGame button {
+    background: #16bc5f;
+    border-radius: 8px;
+    padding: 20px 80px;
+    color: white;
+    float: right;
+    font-size: 30px;
+}
+html {
+    height: 100%;
+    background: radial-gradient(yellow 15%, purple 60%);
+    background-size: cover;
+}
+#myTitle {
+    text-align: center;
+    padding-top: 17.5px;
+    color: #ff6600;
+    background-color: black;
+    font-family: fantasy;
+    font-size: 50px;
+}
+#score {
+    text-align: center;
+    padding-top: 24.5px;
+    padding-left: 15px;
+    color: white;
+    font-family: fantasy;
+    font-size: 30px;
+}
