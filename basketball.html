@@ -1,83 +1,75 @@
 <html>
-	<head>
-    <style>
-        * {
-			padding: 0;
-			margin: 0;
-		}
-
-		canvas {
-			background: black;
-			display: block;
-			margin: 0 auto;
-			margin-top: 15px;
-			border-color: white;
-			border-radius: 8px;
-		}
-
-		#myP {
-			padding-top: 35px;
-			padding-left: 10px;
-			text-align: center;
-			font-family: fantasy;
-			font-size: 30px;
-			font-style: italic;
-			font-weight: bold;
-		}
-
-		#myP button {
-			background: #09C;
-			border-radius: 8px;
-			padding: 20px 80px;
-			color: white;
-			float: left;
-			font-size: 30px;
-		}
-
-		#newGame {
-			padding-top: 5px;
-			padding-left: 10px;
-			text-align: center;
-			font-family: fantasy;
-			font-size: 30px;
-			font-style: italic;
-			font-weight: bold;
-		}
-
-		#newGame button {
-			background: #16bc5f;
-			border-radius: 8px;
-			padding: 20px 80px;
-			color: white;
-			float: right;
-			font-size: 30px;
-		}
-
-		html {
-			height: 100%;
-			background: radial-gradient(yellow 15%, purple 60%);
-			background-size: cover;
-		}
-
-		#myTitle {
-			text-align: center;
-			padding-top: 17.5px;
-			color: #ff6600;
-			background-color: black;
-			font-family: fantasy;
-			font-size: 50px;
-		}
-
-		#score {
-			text-align: center;
-			padding-top: 24.5px;
-			padding-left: 15px;
-			color: white;
-			font-family: fantasy;
-			font-size: 30px;
-		}
-	</style>
-		<script>
+<head>
+<style>
+* {
+    padding: 0;
+    margin: 0;
+}
+canvas {
+    background: black;
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
+    border-color: white;
+    border-radius: 8px;
+}
+#myP {
+    padding-top: 35px;
+    padding-left: 10px;
+    text-align: center;
+    font-family: fantasy;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+}
+#myP button {
+    background: #09C;
+    border-radius: 8px;
+    padding: 20px 80px;
+    color: white;
+    float: left;
+    font-size: 30px;
+}
+#newGame {
+    padding-top: 5px;
+    padding-left: 10px;
+    text-align: center;
+    font-family: fantasy;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+}
+#newGame button {
+    background: #16bc5f;
+    border-radius: 8px;
+    padding: 20px 80px;
+    color: white;
+    float: right;
+    font-size: 30px;
+}
+html {
+    height: 100%;
+    background: radial-gradient(yellow 15%, purple 60%);
+    background-size: cover;
+}
+#myTitle {
+    text-align: center;
+    padding-top: 17.5px;
+    color: #ff6600;
+    background-color: black;
+    font-family: fantasy;
+    font-size: 50px;
+}
+#score {
+    text-align: center;
+    padding-top: 24.5px;
+    padding-left: 15px;
+    color: white;
+    font-family: fantasy;
+    font-size: 30px;
+}
+</style>
+<script>
 		var canvas;
 		var ctx;
 		var ballRadius;
@@ -289,32 +281,29 @@
 			}
 		}
 	</script>
-
-    <title>Elite Ballers</title>
+<title>Elite Ballers</title>
 </head>
 
 <body>
-    <p id="myTitle">
-        <img src="https://cavsnation.com/wp-content/uploads/2016/11/jr-smith-2.jpg" width="290" height="150">
-		<span id="gameTitle"></span>
-        <img src="https://uproxx.files.wordpress.com/2017/12/nick-young.jpg?quality=95&w=650" width="280" height="150">
-		<p>
-			<div id="score">Your score is <span id="tempScore"></span></div>
-			<p>
-				<canvas id="myCanvas" width="800" height="600"></canvas>
-				<p id="myP">
-					<button id="myPButton" onmousedown="mouseDown()" onmouseup="mouseUp()">Hold down to shoot!</button>
-					<span id="winMsg">You win! You're elite.</span>
-				</p>
-				<p id="newGame">
-					<button type="button" onclick="init()">Click for new game!</button>
-				</p>
-			</p>
-		</p>
-	</p>
-	<script>
-		init();
-	</script>
+<p id="myTitle">
+    <img src="https://cavsnation.com/wp-content/uploads/2016/11/jr-smith-2.jpg" width="290" height="150">
+    <span id="gameTitle"></span>
+    <img src="https://uproxx.files.wordpress.com/2017/12/nick-young.jpg?quality=95&w=650" width="280" height="150">
+<p>
+<div id="score">Your score is <span id="tempScore"></span></div>
+<p>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+<p id="myP">
+    <button id="myPButton" onmousedown="mouseDown()" onmouseup="mouseUp()">Hold down to shoot!</button>
+    <span id="winMsg">You win! You're elite.</span> </p>
+<p id="newGame">
+    <button type="button" onclick="init()">Click for new game!</button>
+</p>
+</p>
+</p>
+</p>
+<script>
+    init();
+</script>
 </body>
-
 </html>
