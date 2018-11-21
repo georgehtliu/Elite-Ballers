@@ -1,57 +1,24 @@
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="style/basketball.css">
-<script src="script/basketball.js"></script>    
-<script>
-    var canvas;
-    var ctx;
-    var ballRadius;
-    var hoopX;
-    var hoopY;
-    var backX;
-    var backY;
-    var g;
-    var theta;
-    var score;
-    var interval;
-
-    var v;
-    var dx;
-    var dy;
-    var timer;
-    var stopTimer;
-    var mD;
-    var hit;
-    var t;
-    var x;
-    var y;
-    
-    var drawInterval;
-    var drawFreeFall;
-</script>
-<title>Elite Ballers</title>
-</head>
-<body>
-    <p id="myTitle">
-        <img src="https://cavsnation.com/wp-content/uploads/2016/11/jr-smith-2.jpg" width="290" height="150">
-		<span id="gameTitle"></span>
-        <img src="https://uproxx.files.wordpress.com/2017/12/nick-young.jpg?quality=95&w=650" width="280" height="150">
-		<p>
+	<head>
+		<link rel="stylesheet" type="text/css" href="style/basketball.css">
+		<script src="script/basketball.js"></script>
+		<title>Elite Ballers</title>
+	</head>
+	<body>
+		<div id="myTitle">
+			<img src="https://cavsnation.com/wp-content/uploads/2016/11/jr-smith-2.jpg" width="290" height="150"/>
+			<span id="gameTitle"></span>
+			<img src="https://uproxx.files.wordpress.com/2017/12/nick-young.jpg?quality=95&w=650" width="280" height="150"/>
 			<div id="score">Your score is <span id="tempScore"></span></div>
-			<p>
-				<canvas id="myCanvas" width="800" height="600"></canvas>
-				<p id="myP">
-					<button id="myPButton" onmousedown="mouseDown()" onmouseup="mouseUp()">Hold down to shoot!</button>
-					<span id="winMsg">You win! You're elite.</span>
-				</p>
-				<p id="newGame">
-					<button type="button" onclick="init()">Click for new game!</button>
-				</p>
-			</p>
-		</p>
-	</p>
-	<script>
-		init();
-	</script>
-</body>
+			<canvas id="myCanvas" width="700" height="500"></canvas>
+			<div id="myP">
+				<button id="myPButton" onmousedown="mouseDown()" onmouseup="mouseUp()">Hold down to shoot!</button>
+				<span id="winMsg">You win! You're elite.</span>
+			</div>
+			<div id="newGame">
+				<button type="button" onclick="init()">Click for new game!</button>
+			</div>
+		</div>
+		<script>init();</script>
+	</body>
 </html>
