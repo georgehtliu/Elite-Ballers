@@ -1,0 +1,8 @@
+[build]
+  publish = "src"
+  
+[[redirects]]
+  from = "/*"
+  to = "/basketball.html"
+  status = 200
+

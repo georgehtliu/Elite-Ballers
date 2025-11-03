@@ -48,5 +48,13 @@
 			</div>
 		</div>
 		<script src="script/basketball.js"></script>
+		<script>
+			// Preload LeBron image when page loads
+			window.addEventListener('load', function() {
+				if (typeof loadLebronImage === 'function') {
+					loadLebronImage();
+				}
+			});
+		</script>
 	</body>
 </html>

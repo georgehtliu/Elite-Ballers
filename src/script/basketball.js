@@ -33,6 +33,21 @@ var netMovementDirection = 1;
 var netBaseX = 0;
 var defender = null;
 var gameStarted = false;
+var lebronImage = null;
+
+// Load LeBron image
+function loadLebronImage() {
+	lebronImage = new Image();
+	lebronImage.onload = function() {
+		// Image loaded successfully
+	};
+	lebronImage.onerror = function() {
+		// Image failed to load, will use default drawing
+		lebronImage = null;
+	};
+	// Try different possible file names
+	lebronImage.src = "./images/lebron.jpeg";
+}
 
 function drawBall() {
 	// Draw trailing streak effect when ball is moving through the air
@@ -173,27 +188,42 @@ function drawDefender() {
 	defender.armsUp.x = defender.x + Math.sin(Date.now() / 500) * 5;
 	defender.armsUp.y = defender.y - 15;
 	
-	// Draw body (rectangle)
-	ctx.fillStyle = "#4169E1"; // Royal blue
-	ctx.fillRect(defender.x - defender.width/2, defender.y, defender.width, defender.height);
-	
-	// Draw head (circle)
-	ctx.beginPath();
-	ctx.arc(defender.x, defender.y - 5, 12, 0, Math.PI * 2);
-	ctx.fillStyle = "#DEB887"; // Tan/skin color
-	ctx.fill();
-	ctx.closePath();
-	
-	// Draw arms up (blocking position)
-	ctx.fillStyle = "#4169E1";
-	// Left arm
-	ctx.fillRect(defender.armsUp.x - defender.armsUp.width/2 - 10, defender.armsUp.y, 12, defender.armsUp.height);
-	// Right arm
-	ctx.fillRect(defender.armsUp.x + defender.armsUp.width/2 - 2, defender.armsUp.y, 12, defender.armsUp.height);
-	
-	// Draw legs
-	ctx.fillRect(defender.x - 8, defender.y + defender.height, 8, 25);
-	ctx.fillRect(defender.x, defender.y + defender.height, 8, 25);
+	// Draw LeBron image if loaded, otherwise draw default defender
+	if (lebronImage && lebronImage.complete && lebronImage.naturalWidth > 0) {
+		// Draw LeBron image
+		var imageWidth = 80;
+		var imageHeight = 120;
+		ctx.drawImage(
+			lebronImage,
+			defender.x - imageWidth/2,
+			defender.y - 20,
+			imageWidth,
+			imageHeight
+		);
+	} else {
+		// Fallback: Draw default defender shapes if image not loaded
+		// Draw body (rectangle)
+		ctx.fillStyle = "#4169E1"; // Royal blue
+		ctx.fillRect(defender.x - defender.width/2, defender.y, defender.width, defender.height);
+		
+		// Draw head (circle)
+		ctx.beginPath();
+		ctx.arc(defender.x, defender.y - 5, 12, 0, Math.PI * 2);
+		ctx.fillStyle = "#DEB887"; // Tan/skin color
+		ctx.fill();
+		ctx.closePath();
+		
+		// Draw arms up (blocking position)
+		ctx.fillStyle = "#4169E1";
+		// Left arm
+		ctx.fillRect(defender.armsUp.x - defender.armsUp.width/2 - 10, defender.armsUp.y, 12, defender.armsUp.height);
+		// Right arm
+		ctx.fillRect(defender.armsUp.x + defender.armsUp.width/2 - 2, defender.armsUp.y, 12, defender.armsUp.height);
+		
+		// Draw legs
+		ctx.fillRect(defender.x - 8, defender.y + defender.height, 8, 25);
+		ctx.fillRect(defender.x, defender.y + defender.height, 8, 25);
+	}
 }
 
 function showMenu() {
@@ -220,6 +250,11 @@ function init() {
 	canvas = document.getElementById("myCanvas");
 	ctx = canvas.getContext("2d");
 	ballRadius = 15;
+	
+	// Load LeBron image if not already loaded
+	if (!lebronImage) {
+		loadLebronImage();
+	}
 	
 	// Set initial hoop position
 	var randomOffset = 10 * Math.floor(10 * Math.random() + 8);

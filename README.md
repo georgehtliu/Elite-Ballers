@@ -7,7 +7,13 @@ A physics-based basketball shooting game built with pure HTML, CSS, and JavaScri
 - **Physics-based gameplay** - Realistic ball trajectory with gravity and velocity mechanics
 - **Power charge system** - Hold the button to build up shot power before releasing
 - **Dynamic hoops** - Randomly positioned hoops for each game, keeping gameplay fresh
-- **Score tracking** - Track your progress as you aim for 5 baskets
+- **Three difficulty levels**:
+  - **Level 1 (Normal)** - Standard basketball shooting with static hoops
+  - **Level 2 (Moving Net)** - Challenge yourself with moving hoops that add extra difficulty
+  - **Level 3 (Defender)** - Face a moving defender that tries to block your shots
+- **Visual effects** - Ball trail effects and net ripple animations for enhanced gameplay
+- **Comprehensive stats tracking** - Monitor your shots, makes, shooting percentage, and score in real-time
+- **Backboard physics** - Realistic ball bounce mechanics off the backboard
 - **Win condition** - Reach 5 successful baskets to earn the "Elite" title
 
 ## 🎯 How to Play
@@ -20,7 +26,7 @@ A physics-based basketball shooting game built with pure HTML, CSS, and JavaScri
 
 ## 🚀 Demo
 
-[Play the game live](https://cocky-meninsky-f1d9fe.netlify.app/basketball.html)
+[Play the game live](https://effulgent-custard-866370.netlify.app/basketball.html)
 
 ## 🛠️ Technologies
 
