@@ -1,24 +1,35 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Elite Ballers - A basketball shooting game">
 		<link rel="stylesheet" type="text/css" href="style/basketball.css">
-		<script src="script/basketball.js"></script>
 		<title>Elite Ballers</title>
 	</head>
 	<body>
 		<div id="myTitle">
-			<img src="./images/jr.jpeg" width="290" height="150"/>
+			<img src="./images/jr.jpeg" width="290" height="150" alt="Basketball player"/>
 			<span id="gameTitle"></span>
-			<img src="./images/beasley.jpeg" width="280" height="150"/>
+			<img src="./images/beasley.jpeg" width="280" height="150" alt="Basketball player"/>
 			<div id="score">Your score is <span id="tempScore"></span></div>
+			<div id="stats">Shots: <span id="shots">0</span> | Makes: <span id="makes">0</span> | <span id="percentage">0%</span></div>
+			<div id="powerBarContainer">
+				<div id="powerBarLabel">Power:</div>
+				<div id="powerBarBg">
+					<div id="powerBar"></div>
+				</div>
+			</div>
 			<canvas id="myCanvas" width="700" height="500"></canvas>
 			<div id="myP">
-				<button id="myPButton" onmousedown="mouseDown()" onmouseup="mouseUp()">Hold down to shoot!</button>
+				<button id="myPButton" onmousedown="mouseDown()" onmouseup="mouseUp()" tabindex="0">Hold down to shoot! (or press SPACE)</button>
 				<span id="winMsg">You win! You're elite.</span>
 			</div>
 			<div id="newGame">
 				<button type="button" onclick="init()">Click for new game!</button>
 			</div>
 		</div>
+		<script src="script/basketball.js"></script>
 		<script>init();</script>
 	</body>
 </html>

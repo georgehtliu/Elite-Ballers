@@ -8,8 +8,10 @@ canvas {
   display: block;
   margin: 0 auto;
   margin-top: 15px;
-  border-color: white;
+  border: 3px solid white;
   border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
 }
 
 #myP {
@@ -29,6 +31,20 @@ canvas {
   color: white;
   float: left;
   font-size: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+#myP button:hover {
+  background: #07a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#myP button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #newGame {
@@ -48,6 +64,20 @@ canvas {
   color: white;
   float: right;
   font-size: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+#newGame button:hover {
+  background: #14a84f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#newGame button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 html {
@@ -74,4 +104,80 @@ html {
   color: white;
   font-family: fantasy;
   font-size: 30px;
+  transition: color 0.3s ease;
+}
+
+#score span {
+  font-weight: bold;
+  color: #FFD700;
+  transition: transform 0.3s ease;
+}
+
+#score span.score-updated {
+  transform: scale(1.3);
+  color: #32CD32;
+}
+
+#stats {
+  text-align: center;
+  padding-top: 10px;
+  padding-left: 15px;
+  color: white;
+  font-family: fantasy;
+  font-size: 20px;
+}
+
+#stats span {
+  font-weight: bold;
+  color: #87CEEB;
+}
+
+#powerBarContainer {
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  width: 400px;
+  margin: 0 auto;
+}
+
+#powerBarLabel {
+  color: white;
+  font-family: fantasy;
+  font-size: 18px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+#powerBarBg {
+  width: 100%;
+  height: 25px;
+  background-color: #333;
+  border: 2px solid #555;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+}
+
+#powerBar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00ff00, #ffff00, #ff6600, #ff0000);
+  transition: width 0.1s linear;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+#winMsg {
+  color: #FFD700;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
