@@ -27,6 +27,12 @@ var netRipple = 0;
 var shots = 0;
 var makes = 0;
 var trail = [];
+var currentLevel = 1;
+var netMovementSpeed = 0;
+var netMovementDirection = 1;
+var netBaseX = 0;
+var defender = null;
+var gameStarted = false;
 
 function drawBall() {
 	// Draw trailing streak effect when ball is moving through the air
@@ -94,6 +100,15 @@ function drawBall() {
 }
 
 function drawHoop() {
+	// Level 2 and 3: Move net horizontally
+	if (currentLevel === 2 || currentLevel === 3) {
+		netMovementSpeed += 0.02;
+		var movementRange = 80;
+		hoopX = netBaseX + Math.sin(netMovementSpeed) * movementRange;
+		// Update backboard position to match
+		backX = hoopX;
+	}
+	
 	ctx.beginPath();
 	ctx.rect(hoopX, hoopY, 50, 15);
 	ctx.fillStyle = "#FF0000";
@@ -147,14 +162,100 @@ function drawBackboard() {
 	ctx.closePath();
 }
 
+function drawDefender() {
+	if (currentLevel !== 3 || !defender) return;
+	
+	// Update defender vertical movement
+	defender.movementSpeed += 0.03;
+	defender.y = defender.baseY + Math.sin(defender.movementSpeed) * defender.movementRange;
+	
+	// Update arms position relative to defender
+	defender.armsUp.x = defender.x + Math.sin(Date.now() / 500) * 5;
+	defender.armsUp.y = defender.y - 15;
+	
+	// Draw body (rectangle)
+	ctx.fillStyle = "#4169E1"; // Royal blue
+	ctx.fillRect(defender.x - defender.width/2, defender.y, defender.width, defender.height);
+	
+	// Draw head (circle)
+	ctx.beginPath();
+	ctx.arc(defender.x, defender.y - 5, 12, 0, Math.PI * 2);
+	ctx.fillStyle = "#DEB887"; // Tan/skin color
+	ctx.fill();
+	ctx.closePath();
+	
+	// Draw arms up (blocking position)
+	ctx.fillStyle = "#4169E1";
+	// Left arm
+	ctx.fillRect(defender.armsUp.x - defender.armsUp.width/2 - 10, defender.armsUp.y, 12, defender.armsUp.height);
+	// Right arm
+	ctx.fillRect(defender.armsUp.x + defender.armsUp.width/2 - 2, defender.armsUp.y, 12, defender.armsUp.height);
+	
+	// Draw legs
+	ctx.fillRect(defender.x - 8, defender.y + defender.height, 8, 25);
+	ctx.fillRect(defender.x, defender.y + defender.height, 8, 25);
+}
+
+function showMenu() {
+	document.getElementById("startMenu").style.display = "flex";
+	document.getElementById("gameContent").style.display = "none";
+	gameStarted = false;
+	clearInterval(drawInterval);
+}
+
+function startLevel(level) {
+	currentLevel = level;
+	document.getElementById("startMenu").style.display = "none";
+	document.getElementById("gameContent").style.display = "block";
+	document.getElementById("currentLevel").innerHTML = level;
+	gameStarted = true;
+	init();
+}
+
+function restartLevel() {
+	init();
+}
+
 function init() {
 	canvas = document.getElementById("myCanvas");
 	ctx = canvas.getContext("2d");
 	ballRadius = 15;
-	hoopX = canvas.width - 10 * Math.floor(10 * Math.random() + 8);
+	
+	// Set initial hoop position
+	var randomOffset = 10 * Math.floor(10 * Math.random() + 8);
+	netBaseX = canvas.width - randomOffset;
+	hoopX = netBaseX;
 	hoopY = canvas.height / 3;
 	backX = hoopX;
 	backY = hoopY;
+	
+	// Reset net movement for level 2
+	netMovementSpeed = 0;
+	netMovementDirection = 1;
+	
+	// Generate defender for level 3
+	if (currentLevel === 3) {
+		var defenderX = 150 + Math.random() * (canvas.width - 400);
+		var defenderBaseY = canvas.height / 2 + (Math.random() * 100 - 50);
+		defender = {
+			x: defenderX,
+			baseY: defenderBaseY,
+			y: defenderBaseY,
+			width: 40,
+			height: 60,
+			movementSpeed: 0,
+			movementRange: 60,
+			armsUp: {
+				x: defenderX,
+				y: defenderBaseY - 15,
+				width: 50,
+				height: 40
+			}
+		};
+	} else {
+		defender = null;
+	}
+	
 	g = 10;
 	theta = 0.30 * Math.PI;
 	score = 0;
@@ -198,6 +299,7 @@ function redraw() {
 	drawBall();
 	drawHoop();
 	drawBackboard();
+	drawDefender();
 	updatePowerBar(0);
 }
 
@@ -251,6 +353,67 @@ function collisionDetection() {
 			x = backboardLeft - ballRadius;
 		}
 	}
+	
+	// Level 3: Defender collision detection (reduced blocking area for more leeway)
+	if (currentLevel === 3 && defender && (mD === false && stopTimer === 1)) {
+		// Only check collision if ball is moving toward the defender area
+		// Check if ball is in the general defender region
+		var defenderRegionLeft = defender.x - 60;
+		var defenderRegionRight = defender.x + 60;
+		var defenderRegionTop = defender.y - 40;
+		var defenderRegionBottom = defender.y + defender.height + 20;
+		
+		if (x + ballRadius > defenderRegionLeft && x - ballRadius < defenderRegionRight &&
+		    y + ballRadius > defenderRegionTop && y - ballRadius < defenderRegionBottom) {
+			
+			// Reduced collision areas for more leeway
+			// Body collision - smaller area (only center of body)
+			var bodyWidth = defender.width * 0.6; // Reduced to 60% width
+			var bodyHeight = defender.height * 0.7; // Reduced to 70% height
+			var bodyLeft = defender.x - bodyWidth/2;
+			var bodyRight = defender.x + bodyWidth/2;
+			var bodyTop = defender.y + defender.height * 0.1; // Start lower
+			var bodyBottom = defender.y + bodyHeight;
+			
+			// Only block if ball hits the center of the body
+			if (x + ballRadius * 0.8 > bodyLeft && x - ballRadius * 0.8 < bodyRight &&
+			    y + ballRadius * 0.8 > bodyTop && y - ballRadius * 0.8 < bodyBottom) {
+				redraw();
+				return;
+			}
+			
+			// Arms collision - smaller and narrower
+			var armCenterX = defender.armsUp.x;
+			var armWidth = 8; // Narrower arms
+			var armLeft = armCenterX - defender.armsUp.width/2;
+			var armRight = armCenterX + defender.armsUp.width/2;
+			var armTop = defender.armsUp.y + 5; // Start a bit lower
+			var armBottom = defender.armsUp.y + defender.armsUp.height - 5;
+			
+			// Check left arm - only inner edge
+			if (x + ballRadius * 0.7 > armLeft - 5 && x - ballRadius * 0.7 < armLeft + armWidth &&
+			    y + ballRadius * 0.7 > armTop && y - ballRadius * 0.7 < armBottom) {
+				redraw();
+				return;
+			}
+			
+			// Check right arm - only inner edge
+			if (x + ballRadius * 0.7 > armRight - armWidth && x - ballRadius * 0.7 < armRight + 5 &&
+			    y + ballRadius * 0.7 > armTop && y - ballRadius * 0.7 < armBottom) {
+				redraw();
+				return;
+			}
+			
+			// Head collision - smaller radius
+			var headRadius = 8; // Reduced from 12
+			var distToHead = Math.sqrt((x - defender.x) * (x - defender.x) + (y - (defender.y - 5)) * (y - (defender.y - 5)));
+			// Only block if very close to center of head
+			if (distToHead < ballRadius * 0.7 + headRadius * 0.7) {
+				redraw();
+				return;
+			}
+		}
+	}
 }
 
 function updatePowerBar(power) {
@@ -270,12 +433,21 @@ function updateStats() {
 }
 
 function draw() {
+	// Always update and draw moving elements in levels 2 and 3
+	var needsContinuousMovement = (currentLevel === 2 || currentLevel === 3);
+	
 	if (mD === true) {
 		timer += 1;
 		updatePowerBar(timer);
-	}
-
-	if (mD === false && stopTimer === 1) {
+		
+		// Continue moving net and defender even while charging
+		// Redraw canvas to show movement
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		drawHoop();
+		drawBackboard();
+		drawDefender();
+		drawBall();
+	} else if (mD === false && stopTimer === 1) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		
 		// Update trail - add current position before moving
@@ -290,6 +462,7 @@ function draw() {
 		
 		drawHoop();
 		drawBackboard();
+		drawDefender();
 		collisionDetection();
 
 		if (drawFreeFall) {
@@ -316,6 +489,13 @@ function draw() {
 		}
 		
 		// Draw ball after updating position (so trail is behind)
+		drawBall();
+	} else if (needsContinuousMovement) {
+		// Keep drawing moving elements even when user is idle
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		drawHoop();
+		drawBackboard();
+		drawDefender();
 		drawBall();
 	}
 

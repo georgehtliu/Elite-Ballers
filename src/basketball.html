@@ -8,28 +8,45 @@
 		<title>Elite Ballers</title>
 	</head>
 	<body>
-		<div id="myTitle">
-			<img src="./images/jr.jpeg" width="290" height="150" alt="Basketball player"/>
-			<span id="gameTitle"></span>
-			<img src="./images/beasley.jpeg" width="280" height="150" alt="Basketball player"/>
-			<div id="score">Your score is <span id="tempScore"></span></div>
-			<div id="stats">Shots: <span id="shots">0</span> | Makes: <span id="makes">0</span> | <span id="percentage">0%</span></div>
-			<div id="powerBarContainer">
-				<div id="powerBarLabel">Power:</div>
-				<div id="powerBarBg">
-					<div id="powerBar"></div>
+		<!-- Start Menu -->
+		<div id="startMenu">
+			<div id="menuContent">
+				<h1 id="menuTitle">Elite Ballers</h1>
+				<h2>Select Level</h2>
+				<div id="levelButtons">
+					<button class="levelBtn" onclick="startLevel(1)">Level 1<br><span class="levelDesc">Normal</span></button>
+					<button class="levelBtn" onclick="startLevel(2)">Level 2<br><span class="levelDesc">Moving Net</span></button>
+					<button class="levelBtn" onclick="startLevel(3)">Level 3<br><span class="levelDesc">Defender</span></button>
 				</div>
 			</div>
-			<canvas id="myCanvas" width="700" height="500"></canvas>
-			<div id="myP">
-				<button id="myPButton" onmousedown="mouseDown()" onmouseup="mouseUp()" tabindex="0">Hold down to shoot! (or press SPACE)</button>
-				<span id="winMsg">You win! You're elite.</span>
-			</div>
-			<div id="newGame">
-				<button type="button" onclick="init()">Click for new game!</button>
+		</div>
+		
+		<!-- Game Content -->
+		<div id="gameContent" style="display: none;">
+			<div id="myTitle">
+				<img src="./images/jr.jpeg" width="290" height="150" alt="Basketball player"/>
+				<span id="gameTitle"></span>
+				<img src="./images/beasley.jpeg" width="280" height="150" alt="Basketball player"/>
+				<div id="score">Your score is <span id="tempScore"></span></div>
+				<div id="levelIndicator">Level: <span id="currentLevel">1</span></div>
+				<div id="stats">Shots: <span id="shots">0</span> | Makes: <span id="makes">0</span> | <span id="percentage">0%</span></div>
+				<div id="powerBarContainer">
+					<div id="powerBarLabel">Power:</div>
+					<div id="powerBarBg">
+						<div id="powerBar"></div>
+					</div>
+				</div>
+				<canvas id="myCanvas" width="700" height="500"></canvas>
+				<div id="myP">
+					<button id="myPButton" onmousedown="mouseDown()" onmouseup="mouseUp()" tabindex="0">Hold down to shoot! (or press SPACE)</button>
+					<span id="winMsg">You win! You're elite.</span>
+				</div>
+				<div id="newGame">
+					<button type="button" onclick="showMenu()">Back to Menu</button>
+					<button type="button" onclick="restartLevel()">Restart Level</button>
+				</div>
 			</div>
 		</div>
 		<script src="script/basketball.js"></script>
-		<script>init();</script>
 	</body>
 </html>
